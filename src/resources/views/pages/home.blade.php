@@ -51,7 +51,6 @@
                             <h3 class="text-xl font-bold text-white mb-4">Update Profile Picture</h3>
                             <form id="profileImageForm" method="POST" action="{{ route('profile.update.image') }}" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-300 mb-2">Choose Image</label>
                                     <input type="file" 

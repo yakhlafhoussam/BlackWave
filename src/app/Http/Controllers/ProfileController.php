@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -26,9 +27,17 @@ class ProfileController extends Controller
 
     public function updateImage(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'profile_image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+        ], [
+            'profile_image.required' => 'Please upload an image!',
         ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->with('error', $validator->errors()->first())
+                ->withInput();
+        }
 
         $user = User::find(Auth::id());
 
