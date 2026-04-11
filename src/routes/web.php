@@ -33,5 +33,4 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.update.image');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-
 });

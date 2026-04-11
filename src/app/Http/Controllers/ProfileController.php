@@ -30,7 +30,6 @@ class ProfileController extends Controller
             'profile_image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
-        // Get the authenticated user directly from the database
         $user = User::find(Auth::id());
 
         if (!$user) {
@@ -38,20 +37,20 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('profile_image')) {
-            // Delete old image if exists
+
+            // Delete old image
             if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
                 Storage::disk('public')->delete($user->profile_image);
             }
 
-            // Store the new image
-            $path = $request->file('profile_image')->store('profile-images', 'public');
+            // Store new image
+            $path = $request->file('profile_image')->store('profiles', 'public');
 
-            // Update user profile image using update method
             $user->update([
                 'profile_image' => $path
             ]);
         }
-        
+
         return redirect()->back()->with('success', 'Profile picture updated successfully!');
     }
 

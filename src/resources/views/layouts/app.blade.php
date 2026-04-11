@@ -226,7 +226,7 @@
                         <div class="flex-1">
                             <p class="text-sm font-medium text-amber-400">Warning!</p>
                             <p class="text-sm text-gray-300">{{ session('warning') }}</p>
-                        </div>
+                        </div>https://dashboard.startgate.ma/dashboard/startups/create
                         <button @click="show = false" class="flex-shrink-0 text-gray-500 hover:text-gray-400 transition-colors">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
