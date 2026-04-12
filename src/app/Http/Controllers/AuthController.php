@@ -21,8 +21,9 @@ class AuthController extends Controller
             'username' => ['required', 'string', 'min:3', 'max:255', 'unique:users,username'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'gender' => ['required', Rule::in(['male', 'female'])],
-            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'bio' => ['nullable', 'string', 'max:500'],
         ]);
 
         $profileImagePath = null;
@@ -41,6 +42,7 @@ class AuthController extends Controller
             'is_banned' => false,
             'password' => $validated['password'],
             'google_id' => null,
+            'bio' => $validated['bio'] ?? null,
         ]);
 
         Auth::login($user);
@@ -131,6 +133,7 @@ class AuthController extends Controller
                 'is_banned' => false,
                 'password' => null,
                 'google_id' => $googleUser->getId(),
+                'bio' => null
             ]);
         }
 

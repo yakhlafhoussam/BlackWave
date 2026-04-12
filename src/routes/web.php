@@ -29,8 +29,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () {
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
     Route::post('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.update.image');
+    Route::post('/profile/delete-image', [ProfileController::class, 'deleteImage'])->name('profile.delete.image');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });

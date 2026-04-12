@@ -11,12 +11,6 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
-    public function show(User $user)
-    {
-        $user->load(['posts', 'services', 'receivedRatings.fromUser']);
-
-        return view('profile.show', compact('user'));
-    }
 
     public function edit()
     {
@@ -69,8 +63,7 @@ class ProfileController extends Controller
 
         $validated = $request->validate([
             'username' => ['required', 'string', 'min:3', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
-            'gender' => ['nullable', Rule::in(['male', 'female'])],
-            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
 
         if ($request->hasFile('profile_image')) {
@@ -118,5 +111,24 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('home')->with('success', 'Profile completed successfully.');
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $user = User::find(Auth::id());
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
+            Storage::disk('public')->delete($user->profile_image);
+        }
+
+        $user->update([
+            'profile_image' => false
+        ]);
+
+        return redirect()->back()->with('success', 'Profile picture delete successfully!');
     }
 }

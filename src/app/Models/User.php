@@ -20,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
     'ban_reason',
     'password',
     'google_id',
+    'bio'
 ])]
 #[Hidden([
     'password',

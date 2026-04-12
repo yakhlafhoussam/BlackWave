@@ -110,6 +110,32 @@
                         @enderror
                     </div>
 
+                    {{-- Bio Field --}}
+                    <div class="space-y-2 md:col-span-2">
+                        <label for="bio" class="block text-sm font-medium text-gray-300">
+                            Bio
+                            <span class="text-xs text-gray-500 ml-1">(Optional)</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute top-3 left-0 pl-3 flex items-start pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                                </svg>
+                            </div>
+                            <textarea
+                                name="bio"
+                                id="bio"
+                                rows="3"
+                                placeholder="Tell us a little about yourself..."
+                                class="w-full rounded-xl border bg-white/5 pl-10 pr-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 @error('bio') border-red-500 @else border-white/10 @enderror"
+                            >{{ old('bio') }}</textarea>
+                        </div>
+                        @error('bio')
+                            <p class="text-sm text-red-400">{{ $message }}</p>
+                        @enderror
+                        <p class="text-xs text-gray-500">Share a bit about yourself, your interests, or what you do. (Max 500 characters)</p>
+                    </div>
+
                     {{-- Gender Select Field (Male/Female only) --}}
                     <div class="space-y-2">
                         <label for="gender" class="block text-sm font-medium text-gray-300">
@@ -280,7 +306,7 @@
                 </div>
 
                 {{-- Validation Errors Summary --}}
-                @if($errors->any() && !$errors->has('username') && !$errors->has('email') && !$errors->has('gender') && !$errors->has('profile_image') && !$errors->has('password') && !$errors->has('password_confirmation'))
+                @if($errors->any() && !$errors->has('username') && !$errors->has('email') && !$errors->has('bio') && !$errors->has('gender') && !$errors->has('profile_image') && !$errors->has('password') && !$errors->has('password_confirmation'))
                     <div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
                         <div class="flex items-start gap-3">
                             <svg class="h-5 w-5 flex-shrink-0 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
