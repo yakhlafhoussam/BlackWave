@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -61,24 +62,47 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
 
-        $validated = $request->validate([
-            'username' => ['required', 'string', 'min:3', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
-            'profile_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        $validator = Validator::make($request->all(), [
+            'username' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('users', 'username')->ignore($user->id),
+                'regex:/^[a-zA-Z0-9_]+$/'
+            ],
+
+            'bio' => [
+                'nullable',
+                'string',
+                'max:500'
+            ],
+
+            'current_password' => [
+                'required',
+                'string'
+            ],
+        ], [
+            'username.regex' => 'Username must not contain spaces and only letters, numbers, and underscores are allowed.',
         ]);
 
-        if ($request->hasFile('profile_image')) {
-            if ($user->profile_image && file_exists(storage_path('app/public/' . $user->profile_image))) {
-                unlink(storage_path('app/public/' . $user->profile_image));
-            }
-
-            $user->profile_image = $request->file('profile_image')->store('profiles', 'public');
+        if ($validator->fails()) {
+            return back()
+                ->with('error', $validator->errors()->first())
+                ->withInput();
         }
 
-        $user->username = $validated['username'];
-        $user->gender = $validated['gender'] ?? null;
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with([
+                'error' => 'Current password is incorrect.'
+            ]);
+        }
+
+        $user->username = $request->username;
+        $user->bio = $request->bio;
         $user->save();
 
-        return redirect()->route('profile.show', $user)->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.edit', $user)->with('success', 'Profile updated successfully.');
     }
 
     public function showCompleteForm()

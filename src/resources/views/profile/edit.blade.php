@@ -9,7 +9,7 @@
     {{-- Header --}}
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-white mb-2">Edit Profile</h1>
-        <p class="text-gray-400">Update your username and bio information</p>
+        <p class="text-gray-400">Update your username, avatar and bio information</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -151,7 +151,7 @@
         {{-- Edit Form --}}
         <div class="lg:col-span-2">
             <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 md:p-8">
-                <form method="POST" action="{{ route('profile.edit') }}" class="space-y-6">
+                <form method="POST" action="{{ route('profile.edit.apply') }}" class="space-y-6">
                     @csrf
 
                     {{-- Username Field --}}
