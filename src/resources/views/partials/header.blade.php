@@ -26,7 +26,7 @@
             <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('marketplace*') ? 'text-white bg-white/10' : '' }}">
                 Marketplace
             </a>
-            <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('creators*') ? 'text-white bg-white/10' : '' }}">
+            <a href="{{ route('service') }}" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('creators*') ? 'text-white bg-white/10' : '' }}">
                 Services
             </a>
             <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('community*') ? 'text-white bg-white/10' : '' }}">

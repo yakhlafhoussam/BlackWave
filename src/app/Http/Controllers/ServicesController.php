@@ -11,11 +11,11 @@ class ServicesController extends Controller
 {
     public function index()
     {
-        $services = Service::with(['user', 'category'])
+        $service = Service::with(['user', 'category'])
             ->latest()
             ->paginate(12);
 
-        return view('services.index', compact('services'));
+        return view('pages.service', compact('service'));
     }
 
     public function create()
