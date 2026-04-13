@@ -39,6 +39,7 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.edit.apply');
 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
+    Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
 
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');

@@ -12,8 +12,7 @@ class ServicesController extends Controller
     public function index()
     {
         $service = Service::with(['user', 'category'])
-            ->latest()
-            ->paginate(12);
+            ->latest();
 
         return view('pages.service', compact('service'));
     }
@@ -59,5 +58,10 @@ class ServicesController extends Controller
         $service->delete();
 
         return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+    }
+
+    public function ddos()
+    {
+        return view('services.ddos');
     }
 }
