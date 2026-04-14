@@ -64,4 +64,9 @@ class ServicesController extends Controller
     {
         return view('services.ddos');
     }
+
+    public function password()
+    {
+        return view('services.password');
+    }
 }

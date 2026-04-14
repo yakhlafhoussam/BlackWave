@@ -59,7 +59,7 @@
 
             {{-- Form --}}
             <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 md:p-8">
-                <form id="ddosForm" method="get" action="{{ route('start.ddos') }}" class="space-y-6">
+                <form id="ddosForm" method="POST" action="{{ route('start.ddos') }}" class="space-y-6">
                     @csrf
                     <input type="hidden" name="service_name" value="DDOS">
                     <input type="hidden" name="service_price" value="750">

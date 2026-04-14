@@ -147,7 +147,7 @@
                     </div>
 
                     {{-- Title --}}
-                    <h3 class="text-lg font-semibold text-white mb-2 line-clamp-1">PASSWORD GUEST Service</h3>
+                    <h3 class="text-lg font-semibold text-white mb-2 line-clamp-1">PASSWORD GUESS Service</h3>
 
                     {{-- Description --}}
                     <p class="text-gray-400 text-sm line-clamp-2 mb-3">A password hash attack is when an attacker tries to
@@ -172,27 +172,14 @@
                         </div>
                     </div>
 
-                    {{-- Purchase Button --}}
-                    @auth
-                        <button type="button" onclick="purchaseService('PASSWORD GUEST Service', 500)"
-                            class="mt-2 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6M17 13l1.5 6M9 21h6M12 15v6"></path>
-                            </svg>
-                            Purchase for 500 pts
-                        </button>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="mt-2 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                </path>
-                            </svg>
-                            Login to Purchase
-                        </a>
-                    @endauth
+                    <a href="{{ route('password') }}"
+                        class="mt-2 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6M17 13l1.5 6M9 21h6M12 15v6"></path>
+                        </svg>
+                        Purchase for 500 pts
+                    </a>
                 </div>
             </div>
 

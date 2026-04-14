@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\DdosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
@@ -42,7 +43,10 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
     Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
     Route::get('/service/ddos/apply', [DdosController::class, 'apply'])->name('ddos.apply');
-    Route::get('/service/ddos/start', [DdosController::class, 'start'])->name('start.ddos');
+    Route::post('/service/ddos/start', [DdosController::class, 'start'])->name('start.ddos');
+    Route::get('/service/password', [ServicesController::class, 'password'])->name('password');
+    Route::get('/service/password/apply', [PasswordController::class, 'apply'])->name('password.apply');
+    Route::post('/service/password/start', [PasswordController::class, 'start'])->name('start.password');
 
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
