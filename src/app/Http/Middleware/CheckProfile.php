@@ -19,7 +19,7 @@ class CheckProfile
 
         if ($isProfileIncomplete) {
             return redirect()->route('complete-profile')
-                ->with('error', 'Please complete your profile first.');
+                ->with('info', 'Please complete your profile first.');
         }
 
         return $next($request);

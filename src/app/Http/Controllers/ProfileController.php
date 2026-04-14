@@ -116,22 +116,32 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
 
-        $validated = $request->validate([
-            'username' => ['required', 'string', 'min:3', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
-            'gender' => ['required', Rule::in(['male', 'female'])],
-            'profile_image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        $validator = Validator::make($request->all(), [
+            'username' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('users', 'username')->ignore($user->id),
+                'regex:/^[a-zA-Z0-9_]+$/'
+            ],
+
+            'gender' => [
+                'required',
+                Rule::in(['male', 'female']),
+            ],
+        ], [
+            'username.regex' => 'Username must not contain spaces and only letters, numbers, and underscores are allowed.',
         ]);
 
-        if ($request->hasFile('profile_image')) {
-            if ($user->profile_image && file_exists(storage_path('app/public/' . $user->profile_image))) {
-                unlink(storage_path('app/public/' . $user->profile_image));
-            }
-
-            $user->profile_image = $request->file('profile_image')->store('profiles', 'public');
+        if ($validator->fails()) {
+            return back()
+                ->with('error', $validator->errors()->first())
+                ->withInput();
         }
 
-        $user->username = $validated['username'];
-        $user->gender = $validated['gender'];
+        $user->username = $request->username;
+        $user->gender = $request->gender;
         $user->save();
 
         return redirect()->route('home')->with('success', 'Profile completed successfully.');

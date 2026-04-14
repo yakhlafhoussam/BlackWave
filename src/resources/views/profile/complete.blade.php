@@ -35,33 +35,6 @@
                 </p>
             </div>
 
-            {{-- Flash Messages --}}
-            @if (session('status'))
-                <div class="mb-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
-                    <div class="flex items-start gap-3">
-                        <svg class="h-5 w-5 flex-shrink-0 text-emerald-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <div class="flex-1 text-sm text-emerald-400">{{ session('status') }}</div>
-                    </div>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4">
-                    <div class="flex items-start gap-3">
-                        <svg class="h-5 w-5 flex-shrink-0 text-red-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <div class="flex-1 text-sm text-red-400">{{ session('error') }}</div>
-                    </div>
-                </div>
-            @endif
-
             {{-- Complete Profile Card --}}
             <div class="rounded-2xl border border-gray-800 bg-gray-900/50 backdrop-blur-sm shadow-2xl p-6 md:p-8">
                 <div class="mb-6 pb-6 border-b border-gray-800">
@@ -69,68 +42,25 @@
                     <p class="text-sm text-gray-500">This information will be visible to other users on the platform</p>
                 </div>
 
-                <form method="POST" action="{{ route('profile.complete.store') }}" enctype="multipart/form-data"
-                    class="space-y-6">
+                <form method="POST" action="{{ route('complete-profile.store') }}" class="space-y-6">
                     @csrf
 
                     {{-- Profile Image Upload --}}
                     <div class="flex flex-col items-center space-y-4" x-data="{ preview: null }">
                         <div class="relative">
-                            <input type="file" name="profile_image" id="profile_image" accept="image/*"
-                                @change="
-                                if ($event.target.files[0]) {
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => { preview = e.target.result; };
-                                    reader.readAsDataURL($event.target.files[0]);
-                                } else {
-                                    preview = null;
-                                }
-                            "
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                             <div class="relative cursor-pointer group">
-                                <template x-if="preview">
-                                    <img :src="preview"
-                                        class="h-24 w-24 rounded-full object-cover border-4 border-blue-500/50 shadow-xl">
-                                </template>
                                 <template x-if="!preview">
                                     @if (auth()->user()->profile_image)
-                                        <img src="{{ auth()->user()->profile_image }}"
+                                        <img src="{{ asset('storage/' . $user->profile_image) }}"
+                                            alt="{{ $user->username }}"
                                             class="h-24 w-24 rounded-full object-cover border-4 border-blue-500/50 shadow-xl">
                                     @else
-                                        <div
-                                            class="h-24 w-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center border-4 border-blue-500/50 shadow-xl">
-                                            <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                </path>
-                                            </svg>
-                                        </div>
+                                        <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar"
+                                            class="h-24 w-24 rounded-full object-cover border-4 border-blue-500/50 shadow-xl">
                                     @endif
                                 </template>
-                                <div
-                                    class="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
-                                        </path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                </div>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <label for="profile_image"
-                                class="cursor-pointer text-sm text-blue-400 hover:text-blue-300 transition-colors font-medium">
-                                {{ auth()->user()->profile_image ? 'Change profile picture' : 'Upload profile picture' }}
-                            </label>
-                            <p class="text-xs text-gray-500 mt-1">JPG, PNG or GIF. Max 5MB. Recommended: Square image</p>
-                        </div>
-                        @error('profile_image')
-                            <p class="text-sm text-red-400 text-center">{{ $message }}</p>
-                        @enderror
                     </div>
 
                     {{-- Username Field --}}
@@ -183,12 +113,6 @@
                                 <option value="female"
                                     {{ old('gender', auth()->user()->gender ?? '') == 'female' ? 'selected' : '' }}>Female
                                 </option>
-                                <option value="other"
-                                    {{ old('gender', auth()->user()->gender ?? '') == 'other' ? 'selected' : '' }}>Other
-                                </option>
-                                <option value="prefer_not_to_say"
-                                    {{ old('gender', auth()->user()->gender ?? '') == 'prefer_not_to_say' ? 'selected' : '' }}>
-                                    Prefer not to say</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor"
