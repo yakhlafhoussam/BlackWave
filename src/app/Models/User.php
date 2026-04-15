@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
     'is_banned',
     'ban_reason',
     'has_applied_ddos',
+    'has_applied_password',
     'password',
     'google_id',
     'bio'

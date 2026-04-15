@@ -42,10 +42,14 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.edit.apply');
 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
+
     Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
-    Route::get('/service/ddos/apply', [DdosController::class, 'apply'])->name('ddos.apply');
+    Route::get('/service/ddos/check', [DdosController::class, 'apply'])->name('ddos.check');
+    Route::get('/service/ddos/apply', [DdosController::class, 'start'])->name('ddos.apply');
+    
     Route::get('/service/password', [ServicesController::class, 'password'])->name('password');
     Route::get('/service/password/apply', [PasswordController::class, 'apply'])->name('password.apply');
+    Route::get('/service/password/check', [PasswordController::class, 'redirect'])->name('check.password');
     Route::post('/service/password/start', [PasswordController::class, 'start'])->name('start.password');
     Route::post('/service/password/now/hyk/youcode/security/abdelaziz', [PasswordController::class, 'now'])->name('now.password');
 

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_banned')->default(false);
             $table->text('ban_reason')->nullable();
             $table->boolean('has_applied_ddos')->default(false);
+            $table->boolean('has_applied_password')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();

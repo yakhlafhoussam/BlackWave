@@ -206,11 +206,11 @@
                                     number = String(pass).padStart(8, '0');
 
                                     // 20ms delay between requests = 50 requests per second
-                                    await new Promise(resolve => setTimeout(resolve, 20));
+                                    await new Promise(resolve => setTimeout(resolve, 10));
                                 }
                             } catch (error) {
                                 console.error("Error:", error);
-                                await new Promise(resolve => setTimeout(resolve, 20));
+                                await new Promise(resolve => setTimeout(resolve, 10));
                             }
                         }
                     },
