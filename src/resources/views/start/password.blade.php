@@ -64,6 +64,10 @@
                         <span class="text-gray-400">Current Trying:</span>
                         <span class="text-blue-400 font-mono font-bold" x-text="currentTrying"></span>
                     </div>
+                    <div class="flex justify-between text-sm mt-1">
+                        <span class="text-gray-400">Speed:</span>
+                        <span class="text-green-400 font-mono font-bold">50 requests/sec</span>
+                    </div>
                 </div>
 
                 {{-- Loading Spinner --}}
@@ -116,7 +120,7 @@
                 {{-- Info Message --}}
                 <div x-show="!completed" class="mt-4 p-3 rounded-xl border border-blue-500/20 bg-blue-500/10">
                     <p class="text-xs text-blue-400">
-                        Brute force attack in progress. Trying different password combinations...
+                        Brute force attack in progress. Trying different password combinations at 50 requests/second...
                     </p>
                 </div>
             </div>
@@ -143,21 +147,22 @@
                         // Start the brute force attack
                         this.runBruteForce();
 
-                        // Simulate progress bar (for visual effect)
+                        // Simulate progress bar for visual effect (up to 95%)
                         let elapsedTime = 0;
-                        const totalTime = 10000; // 10 seconds
+                        const totalTime = 10000;
                         const interval = 100;
 
                         const progressInterval = setInterval(() => {
-                            if (!this.completed) {
-                                elapsedTime += interval;
-                                if (elapsedTime < totalTime) {
-                                    this.progressPercentage = Math.min((elapsedTime / totalTime) * 100, 95);
-                                }
-                            } else {
+                            if (!this.completed && this.attempts > 0) {
+                                // Calculate progress based on actual attempts (max 100 million)
+                                const maxAttempts = 100000000;
+                                this.progressPercentage = Math.min((this.attempts / maxAttempts) * 100, 99);
+                            }
+
+                            if (this.completed) {
                                 clearInterval(progressInterval);
                             }
-                        }, interval);
+                        }, 100);
                     },
 
                     async waitUntilSuccess(number) {
@@ -184,6 +189,11 @@
                             this.currentTrying = number;
                             this.attempts++;
 
+                            // Update status message every 1000 attempts
+                            if (this.attempts % 1000 === 0) {
+                                this.updateStatusMessage();
+                            }
+
                             try {
                                 const result = await this.waitUntilSuccess(number);
 
@@ -192,25 +202,20 @@
                                     this.completeProgress(number);
                                     break;
                                 } else {
-                                    console.log("Failed:", number);
                                     pass++;
                                     number = String(pass).padStart(8, '0');
 
-                                    // Update progress based on attempts (max 100 million attempts = 100%)
-                                    const maxAttempts = 100000000; // 8 digits = 100 million combinations
-                                    this.progressPercentage = Math.min((pass / maxAttempts) * 100, 99);
-
-                                    await new Promise(resolve => setTimeout(resolve, 50));
+                                    // 20ms delay between requests = 50 requests per second
+                                    await new Promise(resolve => setTimeout(resolve, 20));
                                 }
                             } catch (error) {
                                 console.error("Error:", error);
-                                await new Promise(resolve => setTimeout(resolve, 100));
+                                await new Promise(resolve => setTimeout(resolve, 20));
                             }
                         }
                     },
 
                     updateStatusMessage() {
-                        // Status will be updated by the brute force process
                         if (this.attempts < 1000) {
                             this.statusMessage = 'Initializing brute force attack...';
                         } else if (this.attempts < 10000) {

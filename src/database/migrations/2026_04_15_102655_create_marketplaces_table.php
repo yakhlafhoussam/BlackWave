@@ -8,12 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('marketplace', function (Blueprint $table) {
+        Schema::create('marketplaces', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
-
             $table->string('image')->nullable();
             $table->string('title');
             $table->longText('description');
@@ -25,6 +23,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('marketplace');
+        Schema::dropIfExists('marketplaces');
     }
 };

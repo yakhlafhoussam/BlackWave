@@ -1,7 +1,7 @@
 {{-- resources/views/services/ddos.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'DDOS Attack Service ')
+@section('title', 'DDOS Attack Code ')
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8">
@@ -19,7 +19,7 @@
                             ⭐ Featured Service
                         </span>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">DDOS ATTACK Service</h1>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">DDOS ATTACK Code</h1>
                 </div>
 
                 {{-- Service Image --}}
@@ -178,13 +178,13 @@
                         Purchase for 750 Points
                     </a>
 
-                    <a href="{{ route('service') }}"
+                    <a href="{{ route('marketplace') }}"
                         class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white/10 border border-white/20 text-white font-medium rounded-xl hover:bg-white/20 transition-all">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
-                        Back to Services
+                        Back to Marketplace
                     </a>
 
                     {{-- Service Info --}}

@@ -18,8 +18,11 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->integer('points')->default(500);
             $table->string('email')->unique()->nullable();
+            $table->text('bio')->nullable()->after('profile_image');
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_banned')->default(false);
+            $table->text('ban_reason')->nullable();
+            $table->boolean('has_applied_ddos')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();

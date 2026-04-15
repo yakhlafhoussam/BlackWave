@@ -6,107 +6,23 @@
 @section('content')
     <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8">
 
-        {{-- Header Section --}}
-        <div class="mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Services</h1>
-            <p class="text-gray-400">Discover professional services offered by our community</p>
-        </div>
-
-        {{-- Search and Filter --}}
-        <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5 mb-8">
-            <form action="#" method="GET" class="space-y-4">
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </div>
-                    <input type="text" name="search" value="{{ request('search') }}"
-                        placeholder="Search services by title, description, or seller..."
-                        class="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all">
-                </div>
-            </form>
+        {{-- Header Section with Add Service Button --}}
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Services</h1>
+                <p class="text-gray-400">Discover professional services offered by our community</p>
+            </div>
+            <a href="#"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-all shadow-lg">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Add Service Now
+            </a>
         </div>
 
         {{-- Services Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            {{-- Service 1: DDOS ATTACK --}}
-            <div
-                class="group rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 hover:scale-[1.02] transition-all duration-300">
-                {{-- Service Image --}}
-                <div class="relative h-48 overflow-hidden bg-gradient-to-br from-red-600/20 to-red-800/20">
-                    <img src="{{ asset('images/ddos.png') }}" alt="DDOS Attack Service"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-
-                    {{-- Category Badge --}}
-                    <div
-                        class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs">
-                        Security
-                    </div>
-
-                    {{-- Price Badge --}}
-                    <div
-                        class="absolute top-3 right-3 bg-gradient-to-r from-red-600 to-orange-600 text-white px-2.5 py-1 rounded-lg text-xs font-bold shadow-lg">
-                        750 pts
-                    </div>
-
-                    {{-- Featured Badge --}}
-                    <div
-                        class="absolute bottom-3 left-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2.5 py-1 rounded-lg text-xs font-medium shadow-lg">
-                        ⭐ Featured
-                    </div>
-                </div>
-
-                {{-- Service Details --}}
-                <div class="p-4">
-                    {{-- Seller Info --}}
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="h-6 w-6 rounded-full overflow-hidden">
-                            <img src="{{ asset('images/BlackWave.jpg') }}" alt="BlackWave Security"
-                                class="h-full w-full object-cover">
-                        </div>
-                        <span class="text-xs text-gray-500">BlackWave Security</span>
-                    </div>
-
-                    {{-- Title --}}
-                    <h3 class="text-lg font-semibold text-white mb-2 line-clamp-1">DDOS ATTACK Service</h3>
-
-                    {{-- Description --}}
-                    <p class="text-gray-400 text-sm line-clamp-2 mb-3">A DDoS (Distributed Denial of Service) attack
-                        overwhelms a server, website, or network with massive traffic from multiple sources to make it
-                        unavailable.</p>
-
-                    {{-- Meta Info --}}
-                    <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
-                        <div class="flex items-center gap-1">
-                            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            <span>Feb 13, 2026</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span>NOW</span>
-                        </div>
-                    </div>
-
-                    <a href="{{ route('ddos') }}"
-                        class="mt-2 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all">
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6M17 13l1.5 6M9 21h6M12 15v6"></path>
-                        </svg>
-                        Purchase for 750 pts
-                    </a>
-                </div>
-            </div>
 
             {{-- Service 2: PASSWORD GUEST --}}
             <div
@@ -190,14 +106,19 @@
                         class="group rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 hover:scale-[1.02] transition-all duration-300">
                         {{-- Service Image Placeholder --}}
                         <div class="relative h-48 overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
-                            <div class="w-full h-full flex items-center justify-center">
-                                <svg class="h-16 w-16 text-gray-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
+                            @if ($dbService->image)
+                                <img src="{{ asset('storage/' . $dbService->image) }}" alt="{{ $dbService->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <svg class="h-16 w-16 text-gray-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            @endif
 
                             @if ($dbService->category)
                                 <div
@@ -218,8 +139,8 @@
                             <div class="flex items-center gap-2 mb-3">
                                 <div class="h-6 w-6 rounded-full overflow-hidden">
                                     @if ($dbService->user->profile_image && $dbService->user->profile_image != '')
-                                        <img src="{{ asset('storage/' . $dbService->user->profile_image) }}"
-                                            alt="" class="h-full w-full object-cover">
+                                        <img src="{{ asset('storage/' . $dbService->user->profile_image) }}" alt=""
+                                            class="h-full w-full object-cover">
                                     @else
                                         <img src="{{ asset('images/default-avatar.png') }}" alt=""
                                             class="h-full w-full object-cover">
@@ -265,13 +186,6 @@
                 @endforeach
             @endif
         </div>
-
-        {{-- Pagination --}}
-        @if (isset($service) && $service->count() > 0)
-            <div class="mt-8">
-                {{ $service->withQueryString()->links() }}
-            </div>
-        @endif
     </div>
 
     {{-- Purchase Confirmation Modal --}}
