@@ -14,7 +14,7 @@
 
         {{-- Create Service Form --}}
         <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 md:p-8">
-            <form method="POST" action="#" enctype="multipart/form-data" class="space-y-6">
+            <form method="POST" action="{{ route('services.store') }}" enctype="multipart/form-data" class="space-y-6">
                 @csrf
 
                 {{-- Service Title --}}
@@ -56,7 +56,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <select name="category_id" id="category_id" required
+                        <select name="category_id" id="category_id"
                             class="w-full rounded-xl border bg-white/5 pl-10 pr-10 py-3 text-white appearance-none cursor-pointer focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 @error('category_id') border-red-500 @else border-white/10 @enderror">
                             <option value="" class="bg-gray-900">Select a category</option>
                             @foreach ($categories ?? [] as $category)

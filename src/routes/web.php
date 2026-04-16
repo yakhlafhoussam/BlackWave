@@ -44,6 +44,8 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
     Route::get('/service/create', [ServicesController::class, 'create'])->name('create.service');
+    Route::post('/service/create', [ServicesController::class, 'store'])->name('services.store');
+    Route::get('/service/show/{service}', [ServicesController::class, 'show'])->name('show.service');
 
     Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
     Route::get('/service/ddos/check', [DdosController::class, 'apply'])->name('ddos.check');
