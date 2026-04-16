@@ -42,12 +42,10 @@ class ProfileController extends Controller
 
         if ($request->hasFile('profile_image')) {
 
-            // Delete old image
             if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
                 Storage::disk('public')->delete($user->profile_image);
             }
 
-            // Store new image
             $path = $request->file('profile_image')->store('profiles', 'public');
 
             $user->update([

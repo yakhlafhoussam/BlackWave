@@ -74,13 +74,13 @@
                                 <p class="text-xs text-gray-500 mt-2">{{ $post->created_at->diffForHumans() }}</p>
                             </div>
                             
-                            @if($post->media_url)
+                            @if($post->media_path)
                                 <div class="relative">
                                     @if($post->media_type === 'image')
-                                        <img src="{{ asset('storage/' . $post->media_url) }}" alt="Post media" class="w-full max-h-[400px] object-cover">
+                                        <img src="{{ asset('storage/' . $post->media_path) }}" alt="Post media" class="w-full max-h-[400px] object-cover">
                                     @elseif($post->media_type === 'video')
                                         <video class="w-full max-h-[400px] object-cover" controls>
-                                            <source src="{{ asset('storage/' . $post->media_url) }}" type="video/mp4">
+                                            <source src="{{ asset('storage/' . $post->media_path) }}" type="video/mp4">
                                         </video>
                                     @endif
                                 </div>
@@ -100,12 +100,12 @@
                                     <span class="text-sm">{{ number_format($post->comments_count ?? 0) }}</span>
                                 </div>
                                 <div class="ml-auto flex gap-2">
-                                    <a href="{{ route('posts.edit', $post) }}" class="text-gray-500 hover:text-blue-400 transition-colors">
+                                    <a href="#" class="text-gray-500 hover:text-blue-400 transition-colors">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
                                     </a>
-                                    <form method="POST" action="{{ route('posts.destroy', $post) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                    <form method="POST" action="#" class="inline" onsubmit="return confirm('Are you sure you want to delete this post?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-gray-500 hover:text-red-400 transition-colors">

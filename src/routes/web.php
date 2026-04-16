@@ -40,6 +40,7 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::post('/profile/delete-image', [ProfileController::class, 'deleteImage'])->name('profile.delete.image');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.edit.apply');
+    Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
     Route::get('/service/create', [ServicesController::class, 'create'])->name('create.service');
@@ -47,7 +48,7 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
     Route::get('/service/ddos/check', [DdosController::class, 'apply'])->name('ddos.check');
     Route::get('/service/ddos/apply', [DdosController::class, 'start'])->name('ddos.apply');
-    
+
     Route::get('/service/password', [ServicesController::class, 'password'])->name('password');
     Route::get('/service/password/apply', [PasswordController::class, 'apply'])->name('password.apply');
     Route::get('/service/password/check', [PasswordController::class, 'redirect'])->name('check.password');
@@ -59,5 +60,5 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/posts/create', [PostController::class, 'create'])->name('create.post');
-    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
+    Route::post('/posts/create', [PostController::class, 'store'])->name('posts.store');
 });
