@@ -12,12 +12,12 @@
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Services</h1>
                 <p class="text-gray-400">Discover professional services offered by our community</p>
             </div>
-            <a href="#"
+            <a href="{{ route('create.service') }}"
                 class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-all shadow-lg">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                Add Service Now
+                Create Service
             </a>
         </div>
 

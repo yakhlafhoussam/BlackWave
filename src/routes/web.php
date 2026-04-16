@@ -42,6 +42,7 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.edit.apply');
 
     Route::get('/service', [ServicesController::class, 'index'])->name('service');
+    Route::get('/service/create', [ServicesController::class, 'create'])->name('create.service');
 
     Route::get('/service/ddos', [ServicesController::class, 'ddos'])->name('ddos');
     Route::get('/service/ddos/check', [DdosController::class, 'apply'])->name('ddos.check');
@@ -54,9 +55,9 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
     Route::post('/service/password/now/hyk/youcode/security/abdelaziz', [PasswordController::class, 'now'])->name('now.password');
 
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace');
-    Route::get('/marketplace/{product}', [MarketplaceController::class, 'show'])->name('marketplace.show');
-    Route::post('/marketplace/{product}/purchase', [MarketplaceController::class, 'purchase'])->name('marketplace.purchase');
+    Route::get('/marketplace/create', [MarketplaceController::class, 'create'])->name('create.marketplace');
 
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('create.post');
+    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
 });

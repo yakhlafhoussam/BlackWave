@@ -29,7 +29,7 @@
             <a href="{{ route('service') }}" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('creators*') ? 'text-white bg-white/10' : '' }}">
                 Services
             </a>
-            <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('community*') ? 'text-white bg-white/10' : '' }}">
+            <a href="{{ route('posts') }}" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('community*') ? 'text-white bg-white/10' : '' }}">
                 Community
             </a>
         </nav>
@@ -72,7 +72,7 @@
                     </button>
 
                     <div x-show="open" x-transition class="absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl py-1 z-50">
-                        <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 transition-colors">
+                        <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 transition-colors">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>

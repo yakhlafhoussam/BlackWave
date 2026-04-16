@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable([
     'user_id',
     'category_id',
-    'image',
     'title',
+    'market_image',
+    'price',
+    'time',
     'description',
-    'price_btc',
 ])]
 class Marketplace extends Model
 {

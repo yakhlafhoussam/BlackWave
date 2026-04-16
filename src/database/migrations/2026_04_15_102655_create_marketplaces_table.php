@@ -12,11 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('image')->nullable();
             $table->string('title');
+            $table->string('market_image')->nullable();
+            $table->decimal('price', 20, 8);
+            $table->integer('time');
             $table->longText('description');
-            $table->decimal('price_btc', 16, 8)->default(0);
-
             $table->timestamps();
         });
     }

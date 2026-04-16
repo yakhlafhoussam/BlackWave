@@ -6,128 +6,6 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8">
     
-    {{-- Profile Hero Section --}}
-    <div class="relative mb-10 rounded-2xl overflow-hidden bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 border border-white/10">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3Cpattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"%3E%3Cpath d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(59,130,246,0.03)" stroke-width="1"/%3E%3C/pattern%3E%3C/defs%3E%3Crect width="100%25" height="100%25" fill="url(%23grid)"/%3E%3C/svg%3E')] opacity-30"></div>
-        
-        <div class="relative px-6 md:px-8 py-8 md:py-10">
-            <div class="flex flex-col md:flex-row md:items-center gap-6">
-                {{-- Profile Image with Upload --}}
-                <div class="relative group" x-data="{ showUpload: false }">
-                    <div class="h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden border-4 border-blue-500/50 shadow-xl">
-                        @if($user->profile_image && $user->profile_image != '')
-                            <img 
-                                src="{{ asset('storage/' . $user->profile_image) }}" 
-                                alt="{{ $user->username }}" 
-                                class="h-full w-full object-cover"
-                                id="profilePreview"
-                            >
-                        @else
-                            <img 
-                                src="{{ asset('images/default-avatar.png') }}" 
-                                alt="Default Avatar" 
-                                class="h-full w-full object-cover"
-                                id="profilePreview"
-                            >
-                        @endif
-                    </div>
-                    
-                    {{-- Upload Overlay --}}
-                    <div class="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center cursor-pointer"
-                         @click="showUpload = true">
-                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    
-                    {{-- Upload Modal --}}
-                    <div x-show="showUpload" 
-                         x-transition.duration.300
-                         class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-                         style="display: none;"
-                         @click.away="showUpload = false">
-                        <div class="bg-black/95 border border-white/10 rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
-                            <h3 class="text-xl font-bold text-white mb-4">Update Profile Picture</h3>
-                            <form id="profileImageForm" method="POST" action="{{ route('profile.update.image') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-300 mb-2">Choose Image</label>
-                                    <input type="file" 
-                                           name="profile_image" 
-                                           id="profile_image_input" 
-                                           accept="image/*"
-                                           class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
-                                    <p class="text-xs text-gray-500 mt-1">JPG, PNG or GIF. Max 5MB.</p>
-                                </div>
-                                <div class="flex gap-3">
-                                    <button type="button" @click="showUpload = false" class="flex-1 px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
-                                        Cancel
-                                    </button>
-                                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors">
-                                        Upload
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-                {{-- User Info --}}
-                <div class="flex-1">
-                    <div class="flex flex-wrap items-center gap-3 mb-2">
-                        <h1 class="text-2xl md:text-3xl font-bold text-white">{{ $user->username }}</h1>
-                        @if($user->is_verified ?? false)
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-xs font-medium">
-                                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                Verified
-                            </span>
-                        @endif
-                    </div>
-                    <p class="text-gray-400 text-sm mb-3">{{ $user->bio ?? 'No bio yet' }}</p>
-                    <div class="flex flex-wrap gap-4 text-sm text-gray-500">
-                        <div class="flex items-center gap-1">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <span>Joined {{ $user->created_at->format('M Y') }}</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <span>{{ number_format($user->followers_count ?? 0) }} Followers</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span>{{ number_format($user->points ?? 0) }} Points</span>
-                        </div>
-                    </div>
-                </div>
-                
-                {{-- Action Buttons --}}
-                <div class="flex gap-3">
-                    <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl text-sm font-medium hover:bg-white/20 transition-all">
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                        </svg>
-                        Edit Profile
-                    </a>
-                    <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-white text-black rounded-xl text-sm font-medium hover:bg-gray-100 hover:scale-105 transition-all shadow-lg">
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                        Create Post
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5">
@@ -247,7 +125,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                     </svg>
                     <p class="text-gray-500">You haven't created any posts yet</p>
-                    <a href="{{ route('posts.create') }}" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('create.post') }}" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>

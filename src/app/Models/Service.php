@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
     'user_id',
     'category_id',
     'title',
+    'service_image',
+    'price',
+    'time',
     'description',
 ])]
 class Service extends Model
