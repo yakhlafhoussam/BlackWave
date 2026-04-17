@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Service::class);
     }
 
+    public function marketplaces()
+    {
+        return $this->hasMany(Marketplace::class);
+    }
+
     public function sentInvitations()
     {
         return $this->hasMany(Invitation::class, 'sender_id');

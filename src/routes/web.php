@@ -59,6 +59,8 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace');
     Route::get('/marketplace/create', [MarketplaceController::class, 'create'])->name('create.marketplace');
+    Route::post('/marketplace/create', [MarketplaceController::class, 'store'])->name('marketplace.store');
+    Route::get('/marketplace/show/{product}', [MarketplaceController::class, 'show'])->name('show.product');
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/posts/create', [PostController::class, 'create'])->name('create.post');
