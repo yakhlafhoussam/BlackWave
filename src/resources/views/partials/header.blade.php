@@ -3,6 +3,14 @@
     <div class="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-6 lg:px-8">
         {{-- Logo and Brand --}}
         <div class="flex items-center gap-3">
+                        {{-- Chat Icon (also for orders) --}}
+                        @auth
+                            <a href="{{ route('chat.list') }}" class="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-white/10 transition-colors" title="Chats & Orders">
+                                <svg class="h-6 w-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 21l1.8-4A7.97 7.97 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                            </a>
+                        @endauth
             <a href="{{ route('home') }}" class="group flex items-center gap-3 transition-transform hover:scale-105">
                 <img 
                     src="{{ asset('images/BlackWave.jpg') }}" 
@@ -32,6 +40,13 @@
             <a href="{{ route('posts') }}" class="px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:text-white rounded-lg hover:bg-white/10 {{ request()->routeIs('community*') ? 'text-white bg-white/10' : '' }}">
                 Community
             </a>
+            @auth
+                @if(auth()->user()->is_admin ?? false)
+                    <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 text-sm font-medium text-yellow-400 transition-all hover:text-white rounded-lg hover:bg-yellow-500/20 {{ request()->routeIs('admin.*') ? 'text-white bg-yellow-500/20' : '' }}">
+                        Admin
+                    </a>
+                @endif
+            @endauth
         </nav>
 
         {{-- User Menu / Auth Actions --}}
