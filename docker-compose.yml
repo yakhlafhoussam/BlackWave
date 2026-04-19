@@ -1,9 +1,9 @@
 services:
   php:
     build: .
-    container_name: php
+    container_name: php3
     ports:
-      - "8000:8000"
+      - "8520:8000"
     volumes:
       - "./src:/var/www/html"
       - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
@@ -13,26 +13,26 @@ services:
 
   postgres:
     image: postgres:17-alpine
-    container_name: postgres
+    container_name: postgres3
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "2004:5432"
+      - "2021:5432"
     volumes:
       - pgtables:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin
+    container_name: pgadmin3
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
-      - "5050:80"
+      - "6054:80"
     depends_on:
       - postgres
 
