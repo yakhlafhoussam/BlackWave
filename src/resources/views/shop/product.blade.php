@@ -149,8 +149,20 @@
 
                     {{-- Action Buttons --}}
                     @auth
-                        @if ((isset($product->stock) && $product->stock > 0) || $product->stock === null)
-                            <form method="POST" action="#" class="space-y-3">
+                        @if (auth()->id() === $product->user_id)
+                            <form method="POST" action="{{ route('marketplace.delete', $product) }}" class="space-y-3">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    Delete Product
+                                </button>
+                            </form>
+                        @elseif ((isset($product->stock) && $product->stock > 0) || $product->stock === null)
+                            <form method="POST" action="{{ route('marketplace.order', $product) }}" class="space-y-3">
                                 @csrf
                                 <button type="submit"
                                     class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all">
