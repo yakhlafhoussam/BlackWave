@@ -60,9 +60,11 @@
                             class="w-full rounded-xl border bg-white/5 pl-10 pr-10 py-3 text-white appearance-none cursor-pointer focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 @error('category_id') border-red-500 @else border-white/10 @enderror">
                             <option value="" class="bg-gray-900">Select a category</option>
                             @foreach ($categories ?? [] as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ old('category_id') == $category->id ? 'selected' : '' }} class="bg-gray-900">
-                                    {{ $category->name }}
+                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }} class="bg-gray-900" data-color="{{ $category->color }}" data-icon="{{ $category->icon }}">
+                                    <span style="color: {{ $category->color }};">
+                                        <i class="{{ $category->icon }} mr-1"></i>
+                                        {{ $category->name }}
+                                    </span>
                                 </option>
                             @endforeach
                         </select>
