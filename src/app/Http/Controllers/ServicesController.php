@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ServicesController extends Controller
+    
 {
+    public function destroy(Service $service)
+    {
+        if (Auth::id() !== $service->user_id) {
+            abort(403);
+        }
+        if ($service->service_image && Storage::disk('public')->exists($service->service_image)) {
+            Storage::disk('public')->delete($service->service_image);
+        }
+        $service->delete();
+        return redirect()->route('service')->with('success', 'Service deleted successfully.');
+    }
+
     public function index()
     {
         $user = User::where('id', Auth::id())->first();
         $service = Service::get();
+        $categories = Category::get();
 
-        return view('pages.service', compact('service', 'user'));
+        return view('pages.service', compact('service', 'user', 'categories'));
     }
 
     public function create()

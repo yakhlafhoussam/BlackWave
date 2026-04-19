@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Storage;
 
 class MarketplaceController extends Controller
 {
+    public function destroy(Marketplace $product)
+    {
+        if (Auth::id() !== $product->user_id) {
+            abort(403);
+        }
+        // Delete image if exists
+        if ($product->market_image && Storage::disk('public')->exists($product->market_image)) {
+            Storage::disk('public')->delete($product->market_image);
+        }
+        $product->delete();
+        return redirect()->route('marketplace')->with('success', 'Product deleted successfully.');
+    }
+
     public function index()
     {
         $user = User::where('id', Auth::id())->first();

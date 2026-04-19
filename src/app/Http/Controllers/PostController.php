@@ -10,9 +10,55 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    public function destroy(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            return back()->with('error', 'You do not have permission to delete this post.');
+        }
+        $post->delete();
+        return back()->with('success', 'Post deleted successfully.');
+    }
+
+    public function destroyComment(\App\Models\Comment $comment)
+    {
+        if (Auth::id() !== $comment->user_id) {
+            return back()->with('error', 'You do not have permission to delete this comment.');
+        }
+        $comment->delete();
+        return back()->with('success', 'Comment deleted successfully.');
+    }
+
+    public function storeComment(Request $request, Post $post)
+    {
+        $request->validate([
+            'content' => 'required|string|max:500',
+        ]);
+        $post->comments()->create([
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+        return back();
+    }
+
+    public function like(Post $post)
+    {
+        $user = Auth::user();
+        if (!$post->likes()->where('user_id', $user->id)->exists()) {
+            $post->likes()->create(['user_id' => $user->id]);
+        }
+        return back();
+    }
+
+    public function unlike(Post $post)
+    {
+        $user = Auth::user();
+        $post->likes()->where('user_id', $user->id)->delete();
+        return back();
+    }
+
     public function index()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::with(['likes', 'comments.user'])->latest()->get();
 
         return view('pages.post', compact('posts'));
     }
