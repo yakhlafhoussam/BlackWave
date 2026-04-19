@@ -281,7 +281,7 @@
                             </path>
                         </svg>
                         <p class="text-gray-500">You haven't offered any services yet</p>
-                        <a href="{{ route('services.create') }}"
+                        <a href="#"
                             class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
@@ -383,7 +383,7 @@
                             </path>
                         </svg>
                         <p class="text-gray-500">You haven't listed any products yet</p>
-                        <a href="{{ route('marketplace.create') }}"
+                        <a href="#"
                             class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
