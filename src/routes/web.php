@@ -37,6 +37,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () {
 
+    // Delete chat and rate
+    Route::delete('/chat/{user}/delete', [ChatController::class, 'deleteChat'])->name('chat.delete');
+    Route::get('/chat/{user}/rate', [ChatController::class, 'rate'])->name('chat.rate');
+    Route::post('/chat/{user}/rate', [ChatController::class, 'storeRating'])->name('chat.rate.store');
+
     Route::get('/chats', [ChatController::class, 'list'])->name('chat.list');
 
     Route::get('/orders', [OrderPageController::class, 'index'])->name('orders');

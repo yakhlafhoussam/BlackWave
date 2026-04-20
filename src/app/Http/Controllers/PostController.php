@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class PostController extends Controller
         return back()->with('success', 'Post deleted successfully.');
     }
 
-    public function destroyComment(\App\Models\Comment $comment)
+    public function destroyComment(Comment $comment)
     {
         if (Auth::id() !== $comment->user_id) {
             return back()->with('error', 'You do not have permission to delete this comment.');
