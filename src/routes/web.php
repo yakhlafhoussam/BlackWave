@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () {
+    // Historic chat page for all members
+    Route::get('/chats/historic', [ChatController::class, 'historic'])->name('chat.historic');
 
     // Delete chat and rate
     Route::delete('/chat/{user}/delete', [ChatController::class, 'deleteChat'])->name('chat.delete');
@@ -91,7 +93,7 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 
     Route::post('/posts/{post}/comments', [PostController::class, 'storeComment'])->name('comments.store');
 
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.delete');
+    Route::delete('/posts/delete/{post}', [PostController::class, 'destroy'])->name('posts.delete');
     Route::delete('/comments/{comment}', [PostController::class, 'destroyComment'])->name('comments.delete');
 });
 

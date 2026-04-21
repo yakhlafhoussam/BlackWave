@@ -6,6 +6,14 @@
 @section('content')
 <div class="max-w-2xl mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold text-white mb-6">Chats</h1>
+    @if(isset($pendingUser) && $pendingUser)
+        <div class="mb-4 p-4 rounded-xl bg-yellow-900/60 border border-yellow-400/30 flex items-center gap-4">
+            <div class="flex-1">
+                <span class="text-yellow-300 font-semibold">You need to rate {{ $pendingUser->username }} after deleting your chat.</span>
+            </div>
+            <a href="{{ route('chat.rate', $pendingUser) }}" class="px-4 py-2 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition-all">Rate Now</a>
+        </div>
+    @endif
     <div class="bg-black/50 border border-white/10 rounded-2xl p-6 mb-4 flex flex-col gap-3">
         @forelse ($chats as $userId => $messages)
             @php
