@@ -34,8 +34,9 @@
 
                     {{-- Category Badge --}}
                     <div
-                        class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs">
-                        Security
+                        class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs flex justify-center items-center gap-1.5">
+                        <i class="fa-brands fa-octopus-deploy text-lg text-red-600"></i>
+                        BlackWave
                     </div>
 
                     {{-- Price Badge --}}
@@ -135,7 +136,9 @@
 
                             @if ($product->category)
                                 <div
-                                    class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs">
+                                    class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs flex justify-center items-center gap-1.5">
+                                    <i class="{{ $product->category->icon }} text-lg"
+                                        style="color: {{ $product->category->color ?? '#3b82f6' }}"></i>
                                     {{ $product->category->name }}
                                 </div>
                             @endif

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Marketplace;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class MarketplaceController extends Controller
 
     public function create()
     {
-        return view('shop.create');
+        $categories = Category::get();
+        return view('shop.create', compact('categories'));
     }
 
     public function store(Request $request)
