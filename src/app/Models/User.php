@@ -44,6 +44,12 @@ class User extends Authenticatable
         ];
     }
 
+    // Average rating accessor for global display
+    public function getRatingsAvgAttribute()
+    {
+        return round($this->receivedRatings()->avg('stars'), 1);
+    }
+
     public function getProfileImageUrlAttribute(): string
     {
         if ($this->profile_image) {
