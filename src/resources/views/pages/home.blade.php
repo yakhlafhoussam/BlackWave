@@ -158,7 +158,7 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <form method="POST" action="#" class="inline"
+                                        <form method="POST" action="{{ route('posts.delete', $post->id) }}" class="inline"
                                             onsubmit="return confirm('Are you sure you want to delete this post?');">
                                             @csrf
                                             @method('DELETE')
@@ -251,7 +251,7 @@
                                                     </path>
                                                 </svg>
                                             </a>
-                                            <form method="POST" action="#" class="inline"
+                                            <form method="POST" action="{{ route('service.delete', $service->id) }}" class="inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this service?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -353,7 +353,7 @@
                                                     </path>
                                                 </svg>
                                             </a>
-                                            <form method="POST" action="#" class="inline"
+                                            <form method="POST" action="{{ route('marketplace.delete', $product->id) }}" class="inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                 @csrf
                                                 @method('DELETE')
