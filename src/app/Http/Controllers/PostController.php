@@ -66,7 +66,8 @@ class PostController extends Controller
 
     public function create(Request $request)
     {
-        return view('posts.create');
+        $categories = Category::get();
+        return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)

@@ -26,7 +26,7 @@
             @if (isset($posts) && $posts->count() > 0)
                 @foreach ($posts as $post)
                     <div
-                        class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/30 transition-all">
+                        class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/30 transition-all relative">
                         {{-- Post Header --}}
                         <div class="p-5 pb-3 flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -54,14 +54,31 @@
                             {{-- Report Dropdown --}}
                             <div class="relative" x-data="{ open: false }">
                                 <div class="flex items-center gap-2">
+                                    {{-- Category Badge --}}
+                                    @if ($post->category)
+                                        <div
+                                            class="bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 z-10">
+                                            @if ($post->category->icon)
+                                                <i class="{{ $post->category->icon }} mr-1"
+                                                    style="color: {{ $post->category->color }}"></i>
+                                            @endif
+                                            <span
+                                                style="color: {{ $post->category->color }}">{{ $post->category->name }}</span>
+                                        </div>
+                                    @endif
                                     @auth
-                                        @if(auth()->id() === $post->user_id)
-                                            <form method="POST" action="{{ route('posts.delete', $post) }}" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                        @if (auth()->id() === $post->user_id)
+                                            <form method="POST" action="{{ route('posts.delete', $post) }}"
+                                                onsubmit="return confirm('Are you sure you want to delete this post?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="p-1.5 rounded-lg text-red-500 hover:bg-red-700 hover:bg-white/10 transition-colors" title="Delete Post">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                <button type="submit"
+                                                    class="p-1.5 rounded-lg text-red-500 hover:bg-red-700 hover:bg-white/10 transition-colors"
+                                                    title="Delete Post">
+                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M6 18L18 6M6 6l12 12" />
                                                     </svg>
                                                 </button>
                                             </form>
@@ -78,8 +95,10 @@
                                         </button>
                                         <div x-show="open" @click.away="open = false" x-transition
                                             class="absolute right-0 mt-1 w-36 rounded-lg border border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl py-1 z-10">
-                                            <button class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10 transition-colors flex items-center gap-2">
-                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <button
+                                                class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10 transition-colors flex items-center gap-2">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
                                                     </path>
@@ -121,14 +140,19 @@
                                 @php
                                     $liked = $post->likes->where('user_id', auth()->id())->count() > 0;
                                 @endphp
-                                <form id="like-form-{{ $post->id }}" method="POST" action="{{ $liked ? route('posts.unlike', $post) : route('posts.like', $post) }}">
+                                <form id="like-form-{{ $post->id }}" method="POST"
+                                    action="{{ $liked ? route('posts.unlike', $post) : route('posts.like', $post) }}">
                                     @csrf
-                                    @if($liked)
+                                    @if ($liked)
                                         @method('DELETE')
                                     @endif
-                                    <button type="submit" class="flex items-center gap-1.5 {{ $liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500' }} transition-colors group">
-                                        <svg class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    <button type="submit"
+                                        class="flex items-center gap-1.5 {{ $liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500' }} transition-colors group">
+                                        <svg class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                            </path>
                                         </svg>
                                         <span class="text-sm">{{ number_format($post->likes->count()) }}</span>
                                     </button>
@@ -136,15 +160,20 @@
                             @else
                                 <span class="flex items-center gap-1.5 text-gray-500">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                        </path>
                                     </svg>
                                     <span class="text-sm">{{ number_format($post->likes->count()) }}</span>
                                 </span>
                             @endauth
 
-                            <button class="flex items-center gap-1.5 text-gray-500 hover:text-blue-400 transition-colors" onclick="document.getElementById('comment-input-{{ $post->id }}').focus();">
+                            <button class="flex items-center gap-1.5 text-gray-500 hover:text-blue-400 transition-colors"
+                                onclick="document.getElementById('comment-input-{{ $post->id }}').focus();">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                    </path>
                                 </svg>
                                 <span class="text-sm">{{ number_format($post->comments->count()) }}</span>
                             </button>
@@ -153,45 +182,58 @@
                         {{-- Comments Section --}}
                         <div class="px-5 pb-4">
                             @auth
-                                <form method="POST" action="{{ route('comments.store', $post) }}" class="flex items-center gap-2 mb-3">
+                                <form method="POST" action="{{ route('comments.store', $post) }}"
+                                    class="flex items-center gap-2 mb-3">
                                     @csrf
-                                    <input id="comment-input-{{ $post->id }}" name="content" type="text" class="flex-1 rounded-lg bg-gray-800 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Add a comment..." required maxlength="500">
-                                    <button type="submit" class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all">Comment</button>
+                                    <input id="comment-input-{{ $post->id }}" name="content" type="text"
+                                        class="flex-1 rounded-lg bg-gray-800 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Add a comment..." required maxlength="500">
+                                    <button type="submit"
+                                        class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all">Comment</button>
                                 </form>
                             @endauth
                             <div class="space-y-2 max-h-40 overflow-y-auto">
-                                @foreach($post->comments as $comment)
+                                @foreach ($post->comments as $comment)
                                     <div class="flex items-start gap-2 group">
-                                        <div class="h-8 w-8 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
+                                        <div
+                                            class="h-8 w-8 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
                                             @if ($comment->user && $comment->user->profile_image && $comment->user->profile_image != '')
-                                                <img src="{{ asset('storage/' . $comment->user->profile_image) }}" alt="" class="h-full w-full object-cover">
+                                                <img src="{{ asset('storage/' . $comment->user->profile_image) }}"
+                                                    alt="" class="h-full w-full object-cover">
                                             @else
-                                                <img src="{{ asset('images/default-avatar.png') }}" alt="Avatar" class="h-full w-full object-cover">
+                                                <img src="{{ asset('images/default-avatar.png') }}" alt="Avatar"
+                                                    class="h-full w-full object-cover">
                                             @endif
                                         </div>
                                         <div>
-                                            <span class="text-xs font-semibold text-white">{{ $comment->user->username ?? 'Unknown' }}</span>
-                                            <span class="text-xs text-gray-400 ml-2">{{ $comment->created_at->diffForHumans() }}</span>
+                                            <span
+                                                class="text-xs font-semibold text-white">{{ $comment->user->username ?? 'Unknown' }}</span>
+                                            <span
+                                                class="text-xs text-gray-400 ml-2">{{ $comment->created_at->diffForHumans() }}</span>
                                             <div class="text-sm text-gray-300">{{ $comment->content }}</div>
-                                                                                    @auth
-                                                                                        @if(auth()->id() === $comment->user_id)
-                                                                                            <form method="POST" action="{{ route('comments.delete', $comment) }}" class="inline-block ml-2 align-middle" onsubmit="return confirm('Delete this comment?');">
-                                                                                                @csrf
-                                                                                                @method('DELETE')
-                                                                                                <button type="submit" class="text-xs text-red-500 hover:text-red-700" title="Delete Comment">
-                                                                                                    <svg class="h-4 w-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                                                    </svg>
-                                                                                                </button>
-                                                                                            </form>
-                                                                                        @endif
-                                                                                    @endauth
+                                            @auth
+                                                @if (auth()->id() === $comment->user_id)
+                                                    <form method="POST" action="{{ route('comments.delete', $comment) }}"
+                                                        class="inline-block ml-2 align-middle"
+                                                        onsubmit="return confirm('Delete this comment?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-xs text-red-500 hover:text-red-700"
+                                                            title="Delete Comment">
+                                                            <svg class="h-4 w-4 inline" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endauth
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
-                        </div
-                    </div>
+                        </div </div>
                 @endforeach
             @else
                 {{-- No Posts Yet --}}
@@ -199,7 +241,8 @@
                     <div class="flex justify-center mb-4">
                         <div
                             class="h-20 w-20 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <svg class="h-10 w-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="h-10 w-10 text-gray-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
                                 </path>
