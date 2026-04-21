@@ -28,14 +28,14 @@ class ServicesController extends Controller
     {
         $user = User::where('id', Auth::id())->first();
         $service = Service::get();
-        $categories = Category::get();
 
-        return view('pages.service', compact('service', 'user', 'categories'));
+        return view('pages.service', compact('service', 'user'));
     }
 
     public function create()
     {
-        return view('services.create');
+        $categories = Category::get();
+        return view('services.create', compact('categories'));
     }
 
     public function store(Request $request)
