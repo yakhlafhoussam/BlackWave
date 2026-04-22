@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->integer('points')->default(500);
             $table->string('email')->unique()->nullable();
-            $table->text('bio')->nullable()->after('profile_image');
+            $table->text('bio')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_banned')->default(false);
             $table->text('ban_reason')->nullable();

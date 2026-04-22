@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -123,8 +124,14 @@ class AuthController extends Controller
 
             $user->save();
         } else {
+            $username = Str::slug($googleUser->getName());
+
+            $count = User::where('username', 'LIKE', "$username%")->count();
+            if ($count > 0) {
+                $username += $count + 1;
+            }
             $user = User::create([
-                'username' => null,
+                'username' => $username,
                 'profile_image' => null,
                 'gender' => null,
                 'points' => 500,
