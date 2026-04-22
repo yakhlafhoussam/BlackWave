@@ -46,7 +46,7 @@ class MarketplaceController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:5120'],
             'price_btc' => ['required', 'numeric', 'min:0.00000001'],
             'delivery_days' => ['required', 'integer', 'min:1', 'max:30'],
-            'description' => ['required', 'string', 'min:50'],
+            'description' => ['required', 'string', 'min:10'],
         ]);
 
         $marketImagePath = null;

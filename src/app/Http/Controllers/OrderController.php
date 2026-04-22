@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Marketplace;
+use App\Models\Message;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class OrderController extends Controller
             'status' => 'pending',
         ]);
         // Send automatic chat message to seller
-        \App\Models\Message::create([
+        Message::create([
             'sender_id' => $buyer->id,
             'receiver_id' => $seller->id,
             'content' => 'You have a new order for your product: ' . $product->title . '.',
@@ -44,7 +45,7 @@ class OrderController extends Controller
             'status' => 'pending',
         ]);
         // Send automatic chat message to seller
-        \App\Models\Message::create([
+        Message::create([
             'sender_id' => $buyer->id,
             'receiver_id' => $seller->id,
             'content' => 'You have a new order for your service: ' . $service->title . '.',

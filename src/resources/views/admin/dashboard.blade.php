@@ -249,10 +249,11 @@
                                 <option value="fa-solid fa-ghost" class="bg-gray-900">👻 Ghost</option>
                                 <option value="fa-solid fa-eye" class="bg-gray-900">👁️ Eye</option>
                                 <option value="fa-solid fa-code" class="bg-gray-900">💻 Code</option>
-                                <option value="fa-solid fa-shield-haltered" class="bg-gray-900">🛡️ Shield</option>
+                                <option value="fa-solid fa-shield-halved" class="bg-gray-900">🛡️ Shield</option>
                                 <option value="fa-solid fa-virus" class="bg-gray-900">🦠 Virus</option>
                                 <option value="fa-solid fa-fingerprint" class="bg-gray-900">🖐️ Fingerprint</option>
                                 <option value="fa-solid fa-torii-gate" class="bg-gray-900">⛩️ Torii Gate</option>
+                                <option value="fa-solid fa-person" class="bg-gray-900">🧑 Human</option>
                             </select>
 
                             <button type="submit"
@@ -398,9 +399,6 @@
                     </button>
                     <form :action="modalAction" method="POST" class="flex-1">
                         @csrf
-                        @if (isset($method) && $method === 'DELETE')
-                            @method('DELETE')
-                        @endif
                         <button type="submit"
                             class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors">
                             Confirm
@@ -444,19 +442,19 @@
                         let message = '';
 
                         if (type === 'category') {
-                            actionUrl = `/admin/categories/${id}/remove`;
+                            actionUrl = `/admin/categories/${id}`;
                             title = 'Remove Category';
                             message = `Are you sure you want to remove category "${name}"? This action cannot be undone.`;
                         } else if (type === 'product') {
-                            actionUrl = `/admin/products/${id}/remove`;
+                            actionUrl = `/admin/products/${id}`;
                             title = 'Remove Product';
                             message = `Are you sure you want to remove product "${name}"? This action cannot be undone.`;
                         } else if (type === 'service') {
-                            actionUrl = `/admin/services/${id}/remove`;
+                            actionUrl = `/admin/services/${id}`;
                             title = 'Remove Service';
                             message = `Are you sure you want to remove service "${name}"? This action cannot be undone.`;
                         } else if (type === 'post') {
-                            actionUrl = `/admin/posts/${id}/remove`;
+                            actionUrl = `/admin/posts/${id}`;
                             title = 'Remove Post';
                             message = `Are you sure you want to remove ${name}? This action cannot be undone.`;
                         }

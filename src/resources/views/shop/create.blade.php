@@ -148,7 +148,7 @@
                     @error('description')
                         <p class="text-sm text-red-400">{{ $message }}</p>
                     @enderror
-                    <p class="text-xs text-gray-500">Provide a detailed description of your product (minimum 50 characters)
+                    <p class="text-xs text-gray-500">Provide a detailed description of your product (minimum 10 characters)
                     </p>
                 </div>
 

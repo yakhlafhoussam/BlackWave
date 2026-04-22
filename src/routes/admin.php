@@ -10,11 +10,11 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->group(function () {
     Route::post('/users/{user}/unban', [AdminController::class, 'unbanUser'])->name('admin.users.unban');
     // Category management
     Route::post('/categories', [AdminController::class, 'addCategory'])->name('admin.categories.add');
-    Route::delete('/categories/{category}', [AdminController::class, 'removeCategory'])->name('admin.categories.remove');
+    Route::post('/categories/{category}', [AdminController::class, 'removeCategory'])->name('admin.categories.remove');
     // Product management
-    Route::delete('/products/{product}', [AdminController::class, 'removeProduct'])->name('admin.products.remove');
+    Route::post('/products/{product}', [AdminController::class, 'removeProduct'])->name('admin.products.remove');
     // Service management
-    Route::delete('/services/{service}', [AdminController::class, 'removeService'])->name('admin.services.remove');
+    Route::post('/services/{service}', [AdminController::class, 'removeService'])->name('admin.services.remove');
     // Post management
-    Route::delete('/posts/{post}', [AdminController::class, 'removePost'])->name('admin.posts.remove');
+    Route::post('/posts/{post}', [AdminController::class, 'removePost'])->name('admin.posts.remove');
 });
