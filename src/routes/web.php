@@ -11,9 +11,9 @@ use App\Http\Controllers\OrderPageController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InvitationController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -24,6 +24,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
     Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+    
+    Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitations.accept');
 });
 
 Route::middleware('auth')->group(function () {
@@ -36,10 +38,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () {
-    // Historic chat page for all members
+    
     Route::get('/chats/historic', [ChatController::class, 'historic'])->name('chat.historic');
 
-    // Delete chat and rate
     Route::delete('/chat/{user}/delete', [ChatController::class, 'deleteChat'])->name('chat.delete');
     Route::get('/chat/{user}/rate', [ChatController::class, 'rate'])->name('chat.rate');
     Route::post('/chat/{user}/rate', [ChatController::class, 'storeRating'])->name('chat.rate.store');
@@ -95,6 +96,9 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 
     Route::delete('/posts/delete/{post}', [PostController::class, 'destroy'])->name('posts.delete');
     Route::delete('/comments/{comment}', [PostController::class, 'destroyComment'])->name('comments.delete');
+
+    Route::post('/invitations/send', [InvitationController::class, 'send'])->name('invitations.send');
+    Route::get('/invitations/prepare', [InvitationController::class, 'index'])->name('invite');
 });
 
 // Admin routes

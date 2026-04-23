@@ -16,7 +16,7 @@ class Invitation extends Model
     protected function casts(): array
     {
         return [
-            'status' => 'integer',
+            'status' => 'boolean',
         ];
     }
 

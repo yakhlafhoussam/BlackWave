@@ -1,6 +1,9 @@
 services:
   php:
     build: .
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     container_name: php3
     ports:
       - "8520:8000"

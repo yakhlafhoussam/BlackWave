@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->string('email');
             $table->string('token')->unique();
-            $table->enum('status', [0, 1])->default(0);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
