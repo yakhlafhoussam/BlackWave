@@ -236,25 +236,12 @@
                                 class="h-11 w-20 bg-white/5 border border-white/10 rounded-lg cursor-pointer focus:border-blue-500 focus:outline-none">
 
                             {{-- Icon Select Dropdown --}}
-                            <select name="icon" required
-                                class="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:border-blue-500 focus:outline-none">
-                                <option value="" class="bg-gray-900">Select an icon</option>
-                                <option value="fa-solid fa-wine-glass" class="bg-gray-900">🍷 Wine Glass</option>
-                                <option value="fa-solid fa-lock-open" class="bg-gray-900">🔓 Lock Open</option>
-                                <option value="fa-solid fa-bug" class="bg-gray-900">🐛 Bug</option>
-                                <option value="fa-solid fa-user-secret" class="bg-gray-900">🕵️ User Secret</option>
-                                <option value="fa-solid fa-skull" class="bg-gray-900">💀 Skull (Dark Web)</option>
-                                <option value="fa-solid fa-mask" class="bg-gray-900">🎭 Mask</option>
-                                <option value="fa-solid fa-dragon" class="bg-gray-900">🐉 Dragon</option>
-                                <option value="fa-solid fa-ghost" class="bg-gray-900">👻 Ghost</option>
-                                <option value="fa-solid fa-eye" class="bg-gray-900">👁️ Eye</option>
-                                <option value="fa-solid fa-code" class="bg-gray-900">💻 Code</option>
-                                <option value="fa-solid fa-shield-halved" class="bg-gray-900">🛡️ Shield</option>
-                                <option value="fa-solid fa-virus" class="bg-gray-900">🦠 Virus</option>
-                                <option value="fa-solid fa-fingerprint" class="bg-gray-900">🖐️ Fingerprint</option>
-                                <option value="fa-solid fa-torii-gate" class="bg-gray-900">⛩️ Torii Gate</option>
-                                <option value="fa-solid fa-person" class="bg-gray-900">🧑 Human</option>
-                            </select>
+                            <input name="icon" required
+                                class="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:border-blue-500 focus:outline-none"
+                                placeholder="fa-solid fa-user"
+                                type="text"
+                                value="{{ old('icon') }}"
+                            >
 
                             <button type="submit"
                                 class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
