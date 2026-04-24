@@ -66,24 +66,26 @@
                 </svg>
                 Chat
             </a>
+            <a href="{{ route('invite') }}"
+                class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 {{ request()->routeIs('invite*') ? 'bg-gradient-to-r bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'text-gray-400 hover:text-white hover:bg-white/10' }}">
+                <i class="fa-solid fa-envelope text-xs"></i>
+                Invite
+            </a>
         </nav>
 
         {{-- Right Section: Actions & User Menu --}}
         <div class="flex items-center gap-3">
             {{-- Admin Actions --}}
             @auth
-                <div class="hidden md:flex items-center gap-2">
-                    <a href="{{ route('invite') }}"
-                        class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-400 rounded-lg hover:bg-blue-500/20 transition-all duration-300">
-                        <i class="fa-solid fa-envelope text-xs"></i>
-                        <span>Invite</span>
-                    </a>
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-yellow-400 rounded-lg hover:bg-yellow-500/20 transition-all duration-300 {{ request()->routeIs('admin.*') ? 'bg-yellow-500/20' : '' }}">
-                        <i class="fa-solid fa-crown text-xs"></i>
-                        <span>Admin</span>
-                    </a>
-                </div>
+                @if (auth()->user()->is_admin)
+                    <div class="hidden md:flex items-center gap-2">
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-yellow-400 rounded-lg hover:bg-yellow-500/20 transition-all duration-300 {{ request()->routeIs('admin.*') ? 'bg-yellow-500/20' : '' }}">
+                            <i class="fa-solid fa-crown text-xs"></i>
+                            <span>Admin</span>
+                        </a>
+                    </div>
+                @endif
             @endauth
 
             {{-- Points Display --}}
