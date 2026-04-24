@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\OtpController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -24,7 +25,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
     Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-    
+
     Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitations.accept');
 });
 
@@ -35,10 +36,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/complete-profile', [ProfileController::class, 'showCompleteForm'])->name('complete-profile');
     Route::post('/complete-profile', [ProfileController::class, 'storeCompleteForm'])->name('complete-profile.store');
+
+    Route::get('/otp/send', [OtpController::class, 'sendOtp'])->name('otp.send');
+    Route::get('/otp/confirm', [OtpController::class, 'showConfirmForm'])->name('otp.confirm');
+    Route::post('/otp/confirm', [OtpController::class, 'verifyOtp'])->name('otp.verify');
 });
 
-Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () {
-    
+Route::middleware(['auth', 'check.banned', 'check.profile', 'email.verified'])->group(function () {
+
     Route::get('/chats/historic', [ChatController::class, 'historic'])->name('chat.historic');
 
     Route::delete('/chat/{user}/delete', [ChatController::class, 'deleteChat'])->name('chat.delete');
@@ -102,4 +107,4 @@ Route::middleware(['auth', 'check.banned', 'check.profile'])->group(function () 
 });
 
 // Admin routes
-require __DIR__.'/admin.php';
+require __DIR__ . '/admin.php';
