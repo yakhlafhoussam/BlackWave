@@ -19,7 +19,7 @@ class InvitationController extends Controller
         $invitationsSent = Invitation::where('sender_id', $user->id)->count();
         $friendsJoined = Invitation::where('sender_id', $user->id)->where('status', true)->count();
         $pointsEarned = $friendsJoined * 250;
-        $recentInvitations = Invitation::where('sender_id', $user->id)->latest()->take(10)->get();
+        $recentInvitations = Invitation::where('sender_id', $user->id)->latest()->get();
 
         return view('emails.invite', compact('invitationsSent', 'friendsJoined', 'pointsEarned', 'recentInvitations'));
     }

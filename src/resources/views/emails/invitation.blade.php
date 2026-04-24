@@ -36,7 +36,7 @@
                     <tr>
                     </tr>
 
-                    {{-- Inviter Info --}}
+                    {{-- invitation Info --}}
                     <tr>
                         <td align="center" style="padding: 20px 40px;">
                             <div
@@ -44,20 +44,21 @@
                                 <div
                                     style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
                                     <div
-                                        style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #9333ea); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                        <span style="font-size: 18px; font-weight: bold; color: white;">
-                                            {{ substr($inviter->username ?? 'U', 0, 2) }}
+                                        style="width: 48px; height: 48px; background: linear-gradient(135deg, #0e193a, #000); border-radius: 50%; text-align: center; margin: 0px 5px 0px 0px">
+                                        <span style="font-size:18px; font-weight:bold; color:white; line-height:48px;">
+                                            {{ substr($invitation->sender->username ?? 'U', 0, 2) }}
                                         </span>
                                     </div>
                                     <div style="text-align: left;">
                                         <p style="font-weight: 600; color: #ffffff; margin: 0; font-size: 16px;">
-                                            {{ $inviter->username ?? 'A BlackWave Member' }}
+                                            {{ $invitation->sender->username ?? 'A BlackWave Member' }}
                                         </p>
                                         <p style="color: #6b7280; margin: 0; font-size: 12px;">BlackWave Member</p>
                                     </div>
                                 </div>
                                 <p style="color: #9ca3af; font-size: 14px; margin: 0; line-height: 1.6;">
-                                    <span style="color: #60a5fa;">{{ $inviter->username ?? 'Someone' }}</span>
+                                    <span
+                                        style="color: #60a5fa;">{{ $invitation->sender->username ?? 'Someone' }}</span>
                                     believes you would be a valuable addition to the BlackWave community and has
                                     personally invited you to join.
                                 </p>
