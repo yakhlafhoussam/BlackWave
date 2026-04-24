@@ -14,7 +14,7 @@ class CheckUserStatus
         $user = User::where('id', Auth::id())->first();
 
         if ($user->is_banned == false && $request->routeIs('banned.page')) {
-            abort(404);
+            return redirect()->route('home');
         }
 
         $isProfileIncomplete =
@@ -23,11 +23,11 @@ class CheckUserStatus
             empty($user->email);
 
         if (!$isProfileIncomplete && $request->routeIs('complete-profile*')) {
-            abort(404);
+            return redirect()->route('home');
         }
 
-        if ($user->email_verified_at && $request->routeIs('otp.*')) {
-            abort(404);
+        if ($user->email_verified_at ==! null && $request->routeIs('otp.*')) {
+            return redirect()->route('home');
         }
 
         return $next($request);
