@@ -87,6 +87,30 @@ class InvitationController extends Controller
             'status' => true,
         ]);
 
+        $baseUsername = explode('@', $invitation->email)[0];
+        $username = $baseUsername;
+        $i = 1;
+
+        while (User::where('username', $username)->exists()) {
+            $username = $baseUsername . $i;
+            $i++;
+        }
+
+        $user = User::create([
+            'username' => $username,
+            'profile_image' => null,
+            'gender' => null,
+            'points' => 500,
+            'email' => $invitation->email,
+            'is_admin' => false,
+            'is_banned' => false,
+            'password' => bcrypt($invitation->token),
+            'google_id' => null,
+            'bio' => null,
+        ]);
+
+        Auth::login($user);
+
         $invitation->sender->increment('points', 250);
 
         return redirect()->route('home')->with('success', 'Invitation accepted successfully.');

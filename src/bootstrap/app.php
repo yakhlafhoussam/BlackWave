@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'email.verified' => \App\Http\Middleware\CheckEmailVerified::class,
             'check.profile' => \App\Http\Middleware\CheckProfile::class,
             'check.banned' => \App\Http\Middleware\CheckIfBanned::class,
             'is_admin' => \App\Http\Middleware\IsAdmin::class,

@@ -87,110 +87,100 @@
                         </button>
                     </form>
                 </div>
+                <div class="flex justify-between w-full mt-2">
+                    {{-- Stats Card --}}
+                    <div class="w-[48%] rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 mb-6">
+                        <div class="text-center mb-4">
+                            <div
+                                class="h-14 w-14 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
+                                <svg class="h-7 w-7 text-green-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">Your Stats</h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                                <span class="text-gray-400 text-sm">Invitations Sent</span>
+                                <span class="text-white font-bold text-lg">{{ $invitationsSent ?? 0 }}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                                <span class="text-gray-400 text-sm">Friends Joined</span>
+                                <span class="text-green-400 font-bold text-lg">{{ $friendsJoined ?? 0 }}</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+                                <span class="text-gray-400 text-sm">Points Earned</span>
+                                <span class="text-yellow-400 font-bold text-lg">{{ $pointsEarned ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- How it Works --}}
+                    <div class="w-[48%] rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 mb-6">
+                        <div class="text-center mb-4">
+                            <div
+                                class="h-14 w-14 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-3">
+                                <svg class="h-7 w-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-white">How it works</h3>
+                        </div>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-3">
+                                <div
+                                    class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
+                                    1</div>
+                                <div>
+                                    <p class="text-white font-medium">Enter Friend's Email</p>
+                                    <p class="text-gray-500 text-xs">Add your friend's email address</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
+                                    2</div>
+                                <div>
+                                    <p class="text-white font-medium">Send Invitation</p>
+                                    <p class="text-gray-500 text-xs">Your friend receives an email invitation</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
+                                    3</div>
+                                <div>
+                                    <p class="text-white font-medium">Friend Registers</p>
+                                    <p class="text-gray-500 text-xs">They click the link and create an account</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="flex-shrink-0 h-6 w-6 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs font-bold">
+                                    4</div>
+                                <div>
+                                    <p class="text-white font-medium">Earn Points</p>
+                                    <p class="text-gray-500 text-xs">Get <span class="text-yellow-400">250 points</span>
+                                        when
+                                        they join!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {{-- Sidebar --}}
             <div class="lg:col-span-1">
-                {{-- Stats Card --}}
-                <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 mb-6">
-                    <div class="text-center mb-4">
-                        <div class="h-14 w-14 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
-                            <svg class="h-7 w-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-white">Your Stats</h3>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                            <span class="text-gray-400 text-sm">Invitations Sent</span>
-                            <span class="text-white font-bold text-lg">{{ $invitationsSent ?? 0 }}</span>
-                        </div>
-                        <div class="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                            <span class="text-gray-400 text-sm">Friends Joined</span>
-                            <span class="text-green-400 font-bold text-lg">{{ $friendsJoined ?? 0 }}</span>
-                        </div>
-                        <div
-                            class="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-blue-600/20 to-purple-600/20">
-                            <span class="text-gray-400 text-sm">Points Earned</span>
-                            <span class="text-yellow-400 font-bold text-lg">{{ $pointsEarned ?? 0 }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- How it Works --}}
-                <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-6 mb-6">
-                    <div class="text-center mb-4">
-                        <div class="h-14 w-14 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-3">
-                            <svg class="h-7 w-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-white">How it works</h3>
-                    </div>
-
-                    <div class="space-y-4 text-sm">
-                        <div class="flex gap-3">
-                            <div
-                                class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
-                                1</div>
-                            <div>
-                                <p class="text-white font-medium">Enter Friend's Email</p>
-                                <p class="text-gray-500 text-xs">Add your friend's email address</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <div
-                                class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
-                                2</div>
-                            <div>
-                                <p class="text-white font-medium">Send Invitation</p>
-                                <p class="text-gray-500 text-xs">Your friend receives an email invitation</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <div
-                                class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
-                                3</div>
-                            <div>
-                                <p class="text-white font-medium">Friend Registers</p>
-                                <p class="text-gray-500 text-xs">They click the link and create an account</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <div
-                                class="flex-shrink-0 h-6 w-6 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs font-bold">
-                                4</div>
-                            <div>
-                                <p class="text-white font-medium">Earn Points</p>
-                                <p class="text-gray-500 text-xs">Get <span class="text-yellow-400">250 points</span> when
-                                    they join!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Share Link --}}
-                <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5">
-                    <h3 class="text-sm font-semibold text-white mb-3">Or Share Your Invite Link</h3>
-                    <div class="flex gap-2">
-                        <input type="text" id="inviteLink"
-                            value="{{ route('register', ['ref' => auth()->user()->id]) }}" readonly
-                            class="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:border-blue-500 focus:outline-none">
-                        <button onclick="copyInviteLink()"
-                            class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-500 transition-colors">
-                            Copy
-                        </button>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Share this link anywhere - your friends can join directly!</p>
-                </div>
-
                 {{-- Recent Invitations --}}
                 @if (isset($recentInvitations) && $recentInvitations->count() > 0)
-                    <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5 mt-6">
+                    <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5 mt-6 w-full">
                         <h3 class="text-sm font-semibold text-white mb-3">Recent Invitations</h3>
                         <div class="space-y-3">
                             @foreach ($recentInvitations as $invite)
@@ -204,6 +194,18 @@
                                     </span>
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                @else
+                    <div class="rounded-2xl border border-white/10 bg-black/50 backdrop-blur-sm p-5 mt-6 text-center">
+                        <div class="flex flex-col items-center gap-2">
+                            <svg class="h-10 w-10 text-gray-600" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <p class="text-gray-500 text-sm">No invitations yet</p>
+                            <p class="text-gray-600 text-xs">Invite friends to get 250 points each!</p>
                         </div>
                     </div>
                 @endif

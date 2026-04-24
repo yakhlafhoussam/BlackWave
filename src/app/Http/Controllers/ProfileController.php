@@ -128,6 +128,13 @@ class ProfileController extends Controller
                 'regex:/^[a-zA-Z0-9_]+$/'
             ],
 
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
+            ],
+
             'gender' => [
                 'required',
                 Rule::in(['male', 'female']),
