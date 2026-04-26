@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Laravel\Socialite\Facades\Socialite;
 
+use function Symfony\Component\Clock\now;
+
 class AuthController extends Controller
 {
     public function showRegister()
@@ -128,7 +130,7 @@ class AuthController extends Controller
 
             $count = User::where('username', 'LIKE', "$username%")->count();
             if ($count > 0) {
-                $username += $count + 1;
+                $username = $username . ($count + 1);
             }
             $user = User::create([
                 'username' => $username,
@@ -140,11 +142,12 @@ class AuthController extends Controller
                 'is_banned' => false,
                 'password' => null,
                 'google_id' => $googleUser->getId(),
+                'email_verified_at' => now(),
                 'bio' => null
             ]);
         }
 
-        Auth::login($user, true);
+        Auth::login($user);
         $request->session()->regenerate();
 
         return redirect()->intended(route('home'));
