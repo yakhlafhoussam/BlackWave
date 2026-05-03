@@ -35,7 +35,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
-      - "6054:80"
+      - "${PGADMIN_DEFAULT_PORT}:80"
     depends_on:
       - postgres
 
